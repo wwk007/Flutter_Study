@@ -8,6 +8,7 @@ import './demo/layout_demo.dart';
 import './demo/view_demo.dart';
 import './demo/sliver_demo.dart';
 import './demo/navigator_demo.dart';
+import './demo/form_demo.dart';
 
 void main() => runApp(App());
 
@@ -21,10 +22,11 @@ class App extends StatelessWidget{
       //home :设置首页； appbar顶部工具栏
       //home: NavigatorDemo(),
       //初始路由
-      initialRoute: '/',
+      initialRoute: '/form',
       routes: {
         '/': (context) => Home(),
         '/about' : (context) =>  PageDemo(title: 'About',),
+        '/form' : (context) =>  FormDemo(),
       },
       theme: ThemeData(
         //primarySwatch:主題顏色；頂部、底部导航栏颜色
@@ -32,7 +34,8 @@ class App extends StatelessWidget{
         //点击按钮后矩形框的颜色
         highlightColor: Color.fromRGBO(255, 255, 255, 0.5),
         //点击按钮后水波纹的颜色
-        splashColor: Colors.white70
+        splashColor: Colors.white70,
+        accentColor: Color.fromRGBO(3, 54, 255, 1.0),
       ),
     );
   }
