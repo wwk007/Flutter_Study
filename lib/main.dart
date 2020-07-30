@@ -6,6 +6,8 @@ import './demo/basic_demo.dart';
 import './demo/hello_demo.dart';
 import './demo/layout_demo.dart';
 import './demo/view_demo.dart';
+import './demo/sliver_demo.dart';
+import './demo/navigator_demo.dart';
 
 void main() => runApp(App());
 
@@ -17,7 +19,13 @@ class App extends StatelessWidget{
       //去除右上角debug条幅
       debugShowCheckedModeBanner: false,
       //home :设置首页； appbar顶部工具栏
-      home: Home(),
+      //home: NavigatorDemo(),
+      //初始路由
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Home(),
+        '/about' : (context) =>  PageDemo(title: 'About',),
+      },
       theme: ThemeData(
         //primarySwatch:主題顏色；頂部、底部导航栏颜色
         primarySwatch: Colors.yellow,
@@ -32,13 +40,12 @@ class App extends StatelessWidget{
 
 class Home extends StatelessWidget{
 
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return DefaultTabController(
       //tab标签个数
-      length: 4,
+      length: 5,
       child: Scaffold(
         backgroundColor: Colors.grey[100],
         appBar: AppBar(
@@ -81,6 +88,7 @@ class Home extends StatelessWidget{
               Tab(icon: Icon(Icons.change_history),),
               Tab(icon: Icon(Icons.directions_bike),),
               Tab(icon: Icon(Icons.view_quilt),),
+              Tab(icon: Icon(Icons.view_array),),
             ],
           ),
         ),
@@ -93,6 +101,7 @@ class Home extends StatelessWidget{
             //Icon(Icons.directions_bike, size: 128.0, color: Colors.black12,),
             LayoutDemo(),
             ViewDemo(),
+            SliverDemo(),
           ],
         ),
         //右边抽屉
