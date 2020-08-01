@@ -11,7 +11,8 @@ import './demo/navigator_demo.dart';
 import './demo/form_demo.dart';
 import './demo/material_components.dart';
 import './demo/state/state_management_demo.dart';
-import 'demo/stream/stream_demo.dart';
+import './demo/stream/stream_demo.dart';
+import './demo/rxdart/rxdart_demo.dart';
 
 void main() => runApp(App());
 
@@ -25,7 +26,7 @@ class App extends StatelessWidget{
       //home :设置首页； appbar顶部工具栏
       //home: NavigatorDemo(),
       //初始路由
-      initialRoute: '/stream',
+      initialRoute: '/rxdart',
       routes: {
         '/': (context) => Home(),
         '/about' : (context) =>  PageDemo(title: 'About',),
@@ -33,6 +34,7 @@ class App extends StatelessWidget{
         '/mdc' : (context) =>  MaterialComponents(),
         '/state-management' : (context) =>  StateManagementDemo(),
         '/stream' : (context) =>  StreamDemo(),
+        '/rxdart' : (context) =>  RxDartDemo(),
       },
       theme: ThemeData(
         //primarySwatch:主題顏色；頂部、底部导航栏颜色
