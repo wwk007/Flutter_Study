@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/demo/i18n/map/wangweikang_demo_localizations_demo.dart';
 
 class I18nDemo extends StatelessWidget {
   @override
@@ -16,6 +17,10 @@ class I18nDemo extends StatelessWidget {
           children: <Widget>[
             //Text('${locale.languageCode}'),
             Text(locale.toString()),
+            Text(
+              Localizations.of(context, WangwekangDemoLocalizations).title,
+              style: Theme.of(context).textTheme.title,
+            ),
           ],
         ),
       ),
