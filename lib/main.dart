@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import './demo/bottom_navigation_bar_demo.dart';
 import './demo/drawer_demo.dart';
 import './demo/listview_demo.dart';
@@ -17,6 +18,8 @@ import './demo/bloc/bloc_demo.dart';
 import './demo/http/http_demo.dart';
 import './demo/http/http_dart_io_demo.dart';
 import 'demo/animation/animation_demo.dart';
+import 'demo/i18n/i18n_demo.dart';
+import "demo/i18n/map/wangweikang_demo_localizations_demo.dart";
 
 
 void main() => runApp(App());
@@ -26,12 +29,27 @@ class App extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
+      //设置应用当前使用的语言
+      //locale: Locale('zh','CN'),
+      localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+        return Locale('zh','CN');
+      },
+
+      localizationsDelegates: [
+        WangwekangDemoLocalizationsDelegate(),//本地化资源
+        GlobalMaterialLocalizations.delegate, //设置Material组件的本地化的语言
+        GlobalWidgetsLocalizations.delegate, //定义小部件默认的文字方向，可以ltr,rtl
+      ],
+      supportedLocales: [//设置支持的语言,默认采用第一个Locale作为本地化语言
+        Locale('en','US'),//en:语言代码； US:地区代码
+        Locale('zh','CN'),
+      ],
       //去除右上角debug条幅
       debugShowCheckedModeBanner: false,
       //home :设置首页； appbar顶部工具栏
       //home: NavigatorDemo(),
       //初始路由
-      initialRoute: '/animation',
+      initialRoute: '/i18n',
       routes: {
         '/': (context) => Home(),
         '/about' : (context) =>  PageDemo(title: 'About',),
@@ -44,6 +62,7 @@ class App extends StatelessWidget{
         '/http-dartIo' : (context) =>  HttpDartIoDemo(),
         '/http' : (context) =>  HttpDemo(),
         '/animation' : (context) =>  AnimationDemo(),
+        '/i18n' : (context) =>  I18nDemo(),
       },
       theme: ThemeData(
         //primarySwatch:主題顏色；頂部、底部导航栏颜色
