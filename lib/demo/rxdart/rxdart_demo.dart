@@ -21,10 +21,34 @@ class RxDartHomeDemo extends StatefulWidget {
 }
 
 class _RxDartHomeDemoState extends State<RxDartHomeDemo> {
+  PublishSubject<String> _textFieldSubject;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _textFieldSubject = PublishSubject<String>();
+
+    _textFieldSubject
+        //数据处理方法: map、where
+        /*map:
+        数据处理方法，当前map方法的结果是在数据前加上了item:,如原来是input: hello，map处理后变成item： input: hello
+        item:往subject里添加的数据；
+         */
+        //.map((item) => 'item： $item')
+        /*
+        where:条件判断方法，当item.length > 9时才会执行listen中的print方法
+         */
+        //.where((item) => item.length > 9)
+        /*
+        debounceTime:停止输入500ms后才执行listen中的方法
+         */
+        .debounceTime(Duration(milliseconds: 500))
+        .listen((data) {
+             print(data);
+    });
+
+
     /*Stream<String> _streamDemo =
         //Stream.fromIterable(['hello','您好']);
         //Stream.fromFuture(Future.value('hello ~'));
@@ -40,7 +64,7 @@ class _RxDartHomeDemoState extends State<RxDartHomeDemo> {
 
     //ReplaySubject:把添加的数据全部交给监听器,监听器会收到所有的数据
     //maxSize: 2 :监听器接收的最大数据个数
-    ReplaySubject<String> _subject = ReplaySubject<String>(maxSize: 2);
+    /*ReplaySubject<String> _subject = ReplaySubject<String>(maxSize: 2);
 
     _subject.add('hello ~');//添加数据
     _subject.add('hola ~');//添加数据
@@ -48,12 +72,36 @@ class _RxDartHomeDemoState extends State<RxDartHomeDemo> {
     _subject.listen((data) => print('listen 1: $data'));
     _subject.listen((data) => print('listen 2: ${data.toUpperCase()}'));
 
-    _subject.close();//关闭subject
+    _subject.close();//关闭subject,关闭之后再添加数据，不会调用监听*/
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _textFieldSubject.close();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Theme(
+      data: Theme.of(context).copyWith(
+        primaryColor: Colors.black,
+      ),
+      child: TextField(
+        onChanged: (value) {//数据有变化时执行
+          _textFieldSubject.add('input: $value');
+          //print(value.length);
+        },
+        onSubmitted: (value) { //提交的时候调用，按回车键执行
+          _textFieldSubject.add('submit: $value');
+        },
+        decoration: InputDecoration(
+          labelText: 'Title',
+          filled: true,
+        ),
+      ),
+    );
   }
 }
 
