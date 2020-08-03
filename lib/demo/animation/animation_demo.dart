@@ -23,13 +23,15 @@ class _AnimationDemoHomeState extends State<AnimationDemoHome>
   AnimationController animationDemoController;
   Animation animation;
   Animation animationColor;
+  CurvedAnimation curve;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    animationDemoController = AnimationController(
+    animationDemoController = AnimationController(//
       /*
+      AnimationController：动画值的变化时匀速的
       value：动画初始值
       lowerBound :初始的值,默认0.0
       upperBound :结束的值,默认1.0
@@ -42,19 +44,23 @@ class _AnimationDemoHomeState extends State<AnimationDemoHome>
       vsync: this,//防止屏幕外的动画消耗不必要的资源, 需加with TickerProviderStateMixin
     );
 
+
+    curve = CurvedAnimation(parent: animationDemoController, curve: Curves.bounceOut);
+
     //创建动画范围值
-    animation = Tween(begin: 32.0, end: 100.0).animate(animationDemoController);
+    //animation = Tween(begin: 32.0, end: 100.0).animate(animationDemoController);
+    animation = Tween(begin: 32.0, end: 100.0).animate(curve);
     animationColor =
         //Colors.red[900] :深一些的红色，[900]可能代表颜色的深度
         ColorTween(begin: Colors.red, end: Colors.red[900]).animate(animationDemoController);
     
-    animationDemoController.addListener(() {
+    /*animationDemoController.addListener(() {
       //animationDemoController.value每一帧动画上的值,在0.0 -> 1.0之间
       //print('${animationDemoController.value}');
       setState(() {
 
       });
-    });
+    });*/
 
     //animationDemoController.forward();//开始播放动画
     /*
@@ -80,26 +86,49 @@ class _AnimationDemoHomeState extends State<AnimationDemoHome>
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: IconButton(
-        icon: Icon(Icons.favorite),
-        //iconSize: animationDemoController.value,//设置小图标的尺寸
-        iconSize: animation.value,//设置小图标的尺寸
-        color: animationColor.value,
-        onPressed: () {
-          switch(animationDemoController.status){
-            case AnimationStatus.completed:
-              animationDemoController.reverse();//倒退播放动画
-              break;
-            default:
-              animationDemoController.forward();
-          }
-          //animationDemoController.forward();
-        },
+      child: AnimatedHeart(
+        animations: [
+          animation,
+          animationColor,
+        ],
+        controller: animationDemoController,
       ),
     );
   }
 }
 
+
+class AnimatedHeart extends AnimatedWidget{
+  final List animations;
+  final AnimationController controller;
+
+  AnimatedHeart({
+    this.animations,
+    this.controller,
+  }) : super(listenable : controller);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return IconButton(
+      icon: Icon(Icons.favorite),
+      //iconSize: animationDemoController.value,//设置小图标的尺寸
+      iconSize: animations[0].value,//设置小图标的尺寸
+      color: animations[1].value,
+      onPressed: () {
+        switch(controller.status){
+          case AnimationStatus.completed:
+            controller.reverse();//倒退播放动画
+            break;
+          default:
+            controller.forward();
+        }
+        //animationDemoController.forward();
+      },
+    );
+  }
+
+}
 
 
 
