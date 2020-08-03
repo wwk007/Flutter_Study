@@ -1,0 +1,1 @@
+import 'package:mobpush_plugin/mobpush_plugin.dart';
