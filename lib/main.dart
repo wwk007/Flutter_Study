@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:mobpush_plugin/mobpush_plugin.dart';
 import './demo/bottom_navigation_bar_demo.dart';
 import './demo/drawer_demo.dart';
 import './demo/listview_demo.dart';
@@ -21,6 +22,7 @@ import 'demo/animation/animation_demo.dart';
 import 'demo/i18n/i18n_demo.dart';
 //import "demo/i18n/map/wangweikang_demo_localizations_demo.dart";
 import 'demo/i18n/intl/wangweikang_demo_localizations.dart';
+import 'demo/mobpush/mobpush_demo.dart';
 
 
 void main() => runApp(App());
@@ -50,7 +52,7 @@ class App extends StatelessWidget{
       //home :设置首页； appbar顶部工具栏
       //home: NavigatorDemo(),
       //初始路由
-      initialRoute: '/i18n',
+      initialRoute: '/mobpush',
       routes: {
         '/': (context) => Home(),
         '/about' : (context) =>  PageDemo(title: 'About',),
@@ -64,6 +66,7 @@ class App extends StatelessWidget{
         '/http' : (context) =>  HttpDemo(),
         '/animation' : (context) =>  AnimationDemo(),
         '/i18n' : (context) =>  I18nDemo(),
+        '/mobpush' : (context) =>  MobpushDemo(),
       },
       theme: ThemeData(
         //primarySwatch:主題顏色；頂部、底部导航栏颜色
