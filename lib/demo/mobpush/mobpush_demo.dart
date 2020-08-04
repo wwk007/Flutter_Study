@@ -80,7 +80,7 @@ class _MobpushDemoState extends State<MobpushDemo> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('hello'),
+            Text('sdk: $_sdkVersion, _registrationId: $_registrationId'),
             RaisedButton(
               child: Text('通知'),
               onPressed: () {
