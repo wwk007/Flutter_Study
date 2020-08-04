@@ -1,8 +1,14 @@
 {
-  "@@last_modified": "2020-08-03T23:24:12.296024",
-  "greet": "hello {name}",
+  "@@last_modified": "2020-08-04T09:06:46.509044",
+  "title": "您好",
+  "@title": {
+    "description": "演示本地化",
+    "type": "text",
+    "placeholders": {}
+  },
+  "greet": "您好 {name}",
   "@greet": {
-    "description": "greet someone.",
+    "description": "问候默认",
     "type": "text",
     "placeholders": {
       "name": {}

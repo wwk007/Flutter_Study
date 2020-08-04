@@ -19,7 +19,8 @@ import './demo/http/http_demo.dart';
 import './demo/http/http_dart_io_demo.dart';
 import 'demo/animation/animation_demo.dart';
 import 'demo/i18n/i18n_demo.dart';
-import "demo/i18n/map/wangweikang_demo_localizations_demo.dart";
+//import "demo/i18n/map/wangweikang_demo_localizations_demo.dart";
+import 'demo/i18n/intl/wangweikang_demo_localizations.dart';
 
 
 void main() => runApp(App());
@@ -30,13 +31,13 @@ class App extends StatelessWidget{
     // TODO: implement build
     return MaterialApp(
       //设置应用当前使用的语言
-      //locale: Locale('zh','CN'),
-      localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+      locale: Locale('zh','CN'),
+      /*localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
         return Locale('zh','CN');
-      },
+      },*/
 
       localizationsDelegates: [
-        WangwekangDemoLocalizationsDelegate(),//本地化资源
+        WangweikangDemoLocalizationsDelegate(),//本地化资源
         GlobalMaterialLocalizations.delegate, //设置Material组件的本地化的语言
         GlobalWidgetsLocalizations.delegate, //定义小部件默认的文字方向，可以ltr,rtl
       ],
