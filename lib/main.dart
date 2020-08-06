@@ -25,7 +25,6 @@ import 'demo/i18n/intl/wangweikang_demo_localizations.dart';
 import 'demo/mobpush/mobpush_demo.dart';
 import 'demo/flutter_to_android_demo.dart';
 
-
 void main() => runApp(App());
 
 class App extends StatelessWidget{

@@ -8,36 +8,16 @@ class FlutterToAndroidDemo extends StatefulWidget {
 }
 
 class _FlutterToAndroidDemoState extends State<FlutterToAndroidDemo> {
-  //1.定义MethodChannel，参数要与原生app中MethodChannel的参数一致，可以任意写
-  //MethodChannel methodChannel = MethodChannel('song.test.com.myapplication');
+  int _level = 0;
+  static const platform = const MethodChannel("com.test/name");
 
-  //static const platform = const MethodChannel("com.test/name");
+  _getBattery() async {
+      final result = await platform.invokeMethod("getBatteryInfo");
 
-  /*String result = '';
-  void onClick() async {
-    final String result = await methodChannel.invokeMethod('showToast');
-
-    setState(() {
-      this.result = result;
-    });
-  }*/
-  bool result = false;
-
-  static const String chanel = "back/desktop";
-  //返回手机桌面事件
-  static const String eventBackDesktop = "backDesktop";
-  Future<bool> isEuropeUser() async {
-    // Native channel
-    final platform = MethodChannel(chanel); //分析1
-    try {
-      result = await platform.invokeMethod(eventBackDesktop); //分析2
-      print('result: $result');
-    } on PlatformException catch (e) {
-      print(e.toString());
-    }
-    return result;
+      setState(() {
+        _level = result;
+      });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +32,10 @@ class _FlutterToAndroidDemoState extends State<FlutterToAndroidDemo> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text('$result'),
+              Text('$_level'),
               RaisedButton(
-                onPressed: isEuropeUser,
-                child: Text('点击'),
+                child: Text('获取电量'),
+                onPressed: _getBattery,
               ),
             ],
           ),

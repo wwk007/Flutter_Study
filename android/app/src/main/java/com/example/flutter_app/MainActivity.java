@@ -1,67 +1,68 @@
 package com.example.flutter_app;
 
+import android.content.ContextWrapper;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.mtp.MtpConstants;
+import android.os.BatteryManager;
+import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
+
+import java.util.PrimitiveIterator;
+
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 
 public class MainActivity extends FlutterActivity {
     private String TAG = "weikang";
-    //通讯名称,回到手机桌面
-    private final String chanel = "back/desktop";
-    //返回手机桌面事件
-    static final String eventBackDesktop = "backDesktop";
-
-   /* @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }*/
+    private String CHANNEL = "com.test/name";
 
     @Override
     public void configureFlutterEngine(FlutterEngine flutterEngine){
         Log.d(TAG,"configureFlutterEngine");
         GeneratedPluginRegistrant.registerWith(flutterEngine);
-        initBackTop();
-    }
+        //1.创建MethodChannel
+        MethodChannel channel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL);
 
-    //注册返回到手机桌面事件
-    private void initBackTop() {
-       /* new MethodChannel(getFlutterView(), chanel).setMethodCallHandler(
-                (methodCall, result) -> {
-                    if (methodCall.method.equals(eventBackDesktop)) {
-                        moveTaskToBack(false);
-                        result.success(true);
+        //2.添加调用方法的回调
+        channel.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+            @Override
+            public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
+                if(methodCall.method.equals("getBatteryInfo")){
+                    int batteryLevel = getBatteryLevel();
+                    Log.d(TAG,"batteryLevel:"+batteryLevel);
+                    if(batteryLevel != -1) {
+                        result.success(batteryLevel);
+                    }else {
+                        result.error("unAvailable","Battery level not available",null);
                     }
+                }else {
+                    //没有实现
+                    result.notImplemented();
                 }
-        );*/
+            }
+        });
+
     }
 
-
-
-
-
-  /*  private void registerCustomPlugin(PluginRegistry registrar) {
-        FlutterNativePlugin.registerWith(registrar.registrarFor(FlutterNativePlugin.CHANNEL));
+    private int getBatteryLevel() {
+        int batterylevel = -1;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            BatteryManager manager = (BatteryManager)getSystemService(BATTERY_SERVICE);
+            batterylevel = manager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY) ;
+        }else {
+            Intent intent = new ContextWrapper(getApplication()).registerReceiver(null,
+                    new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+            batterylevel =  (intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100)
+                    / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        }
+        return batterylevel;
     }
 
-    @Override
-    public Registrar registrarFor(String s) {
-        Log.d(TAG,"registrarFor");
-        return null;
-    }
-
-    @Override
-    public boolean hasPlugin(String s) {
-        Log.d(TAG,"hasPlugin");
-        return false;
-    }
-
-    @Override
-    public <T> T valuePublishedByPlugin(String s) {
-        Log.d(TAG,"valuePublishedByPlugin");
-        return null;
-    }*/
 }
