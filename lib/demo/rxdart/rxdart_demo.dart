@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:async';
 
+//subject，及条件约束map,where,debounceTime等
 class RxDartDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

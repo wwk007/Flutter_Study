@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_app/demo/i18n/map/wangweikang_demo_localizations_demo.dart';
 import 'intl/wangweikang_demo_localizations.dart';
 
+//语言本地化
 class I18nDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/demo/layout_demo.dart';
 
+//StreamBuilder 构建小部件
 class CounterHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

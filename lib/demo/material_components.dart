@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/demo/test/test_demo.dart';
 import './button_demo.dart';
 import './floating_action_button_demo.dart';
 import './popup_menu_button_demo.dart';
@@ -18,6 +19,17 @@ import './data_tab_demo.dart';
 import './paginated_datetab_demo.dart';
 import './card_demo.dart';
 import './stepper_demo.dart';
+import './navigator_demo.dart';
+import './state/state_management_demo.dart';
+import './stream/stream_demo.dart';
+import './rxdart/rxdart_demo.dart';
+import './bloc/bloc_demo.dart';
+import './http/http_demo.dart';
+import './http/http_dart_io_demo.dart';
+import './animation/animation_demo.dart';
+import './i18n/i18n_demo.dart';
+import './mobpush/mobpush_demo.dart';
+import './flutter_to_android_demo.dart';
 
 class MaterialComponents extends StatelessWidget {
   @override
@@ -29,6 +41,20 @@ class MaterialComponents extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
+          ListItem(title: 'Test', page: TestDemo()),
+          ListItem(title: 'Flutter-to-android', page: FlutterToAndroidDemo()),
+          ListItem(title: 'Mobpush', page: MobpushDemo()),
+          ListItem(title: 'I18n', page: I18nDemo()),
+          ListItem(title: 'Animation', page: AnimationDemo()),
+          ListItem(title: 'Http', page: HttpDemo()),
+          ListItem(title: 'Http-dartIo', page: HttpDartIoDemo()),
+          ListItem(title: 'Bloc', page: BlocDemo()),
+          ListItem(title: 'Rxdart', page: RxDartDemo()),
+          ListItem(title: 'Stream', page: StreamDemo()),
+          ListItem(title: 'State-management', page: StateManagementDemo()),
+          ListItem(title: 'Mdc', page: MaterialComponents()),
+          ListItem(title: 'Form', page: FormDemo()),
+          ListItem(title: 'About', page: PageDemo(title: 'About',)),
           ListItem(title: 'Stepper', page: StepperDemo()),
           ListItem(title: 'Card', page: CardDemo()),
           ListItem(title: 'PaginatedDataTable', page: PaginatedDataTableDemo()),
