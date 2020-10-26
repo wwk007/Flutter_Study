@@ -17,3 +17,6 @@ flutter pub pub run intl_translation:extract_to_arb --output-dir=lib/demo/i18n/i
 flutter pub pub run intl_translation:generate_from_arb --generated-file-prefix=wangweikang_demo --output-dir=lib/demo/i18n/intl --no-us
 e-deferred-loading lib/demo/i18n/intl/wangweikang_demo_localizations.dart lib/demo/i18n/intl/intl_*.arb
 
+学习网站
+1.https://material.io/
+2.github里的项目
